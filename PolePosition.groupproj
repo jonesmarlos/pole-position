@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{71D9E6B4-1FFE-44E1-8DD5-6C79C1CEBE96}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="DataCollect\DataCollect.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="DataPreProcessing\DataPreProcessing.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="DataCollect">
+        <MSBuild Projects="DataCollect\DataCollect.dproj"/>
+    </Target>
+    <Target Name="DataCollect:Clean">
+        <MSBuild Projects="DataCollect\DataCollect.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DataCollect:Make">
+        <MSBuild Projects="DataCollect\DataCollect.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DataPreProcessing">
+        <MSBuild Projects="DataPreProcessing\DataPreProcessing.dproj"/>
+    </Target>
+    <Target Name="DataPreProcessing:Clean">
+        <MSBuild Projects="DataPreProcessing\DataPreProcessing.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DataPreProcessing:Make">
+        <MSBuild Projects="DataPreProcessing\DataPreProcessing.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="DataCollect;DataPreProcessing"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="DataCollect:Clean;DataPreProcessing:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="DataCollect:Make;DataPreProcessing:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
